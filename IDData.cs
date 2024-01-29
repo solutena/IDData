@@ -6,23 +6,21 @@ public class IDData
 {
 	[SerializeField] string id;
 
-	public string ID { get => id; private set => id = value; }
+	public string ID { get => id; set => id = value; }
 
 	public IDData() { ID = Guid.NewGuid().ToString(); }
-	public static bool operator ==(IDData a, IDData b) => Equals(a, b);
-	public static bool operator !=(IDData a, IDData b) => !Equals(a, b);
-	public static bool Equals(IDData a, IDData b)
+	public override bool Equals(object obj)
 	{
-		if (IsNull(a))
-			return IsNull(b);
-		else
-		{
-			if (IsNull(b))
-				return false;
-			return a.Equals(b);
-		}
+		if (obj is IDData compare)
+			return ID.Equals(compare.ID);
+		return false;
 	}
-	public static bool IsNull(IDData data) => data is null || string.IsNullOrEmpty(data.ID);
-	public override bool Equals(object obj) => ID == (obj as IDData).ID;
-	public override int GetHashCode() => ID.GetHashCode();
+	public override int GetHashCode() => string.IsNullOrEmpty(ID) ? 0 : ID.GetHashCode();
+	public static bool operator ==(IDData a, IDData b)
+	{
+		if (a is null || string.IsNullOrEmpty(a.ID))
+			return b is null || string.IsNullOrEmpty(b.ID);
+		return a.Equals(b);
+	}
+	public static bool operator !=(IDData a, IDData b) => !(a == b);
 }
