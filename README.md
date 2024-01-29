@@ -25,5 +25,4 @@ public class Monster : IDData
 }
 ```
 
-
-Json으로 변환될 멤버에 `[SerializeField]` 를 추가해준다.
+Json으로 변환될 데이터에 IDData를 상속해준다
