@@ -26,3 +26,11 @@ public class Monster : IDData
 ```
 
 Json으로 변환될 데이터에 IDData를 상속해준다
+
+```
+if (this == null)
+	return;
+```
+IDData가 상속된 데이터는
+
+다음과 같이 null 검사를 할 수 있다
